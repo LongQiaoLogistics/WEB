@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="user">
+	<cacheModel type="LRU" id="userCache">
+		<flushInterval hours="24" />
+		<property name="size" value="1000" />
+	</cacheModel>
+
+	<typeAlias alias="user" type="com.deke.entity.User" />
+
+	
+	<resultMap class="user" id="userResult">
+		<result property="id" column="id"/>
+		<result property="userName" column="username" />
+		<result property="password" column="password" />
+	</resultMap>
+	
+	
+	<insert id="insertUser" parameterClass="user">
+		INSERT INTO
+		T_USER(USERNAME,PASSWORD) VALUES (#userName#,#password#)
+	</insert>
+
+	<select id="queryUser"  parameterClass="java.lang.String" resultMap="userResult" >
+		SELECT * FROM T_USER WHERE USERNAME = #value#
+	</select>
+	</sqlMap>

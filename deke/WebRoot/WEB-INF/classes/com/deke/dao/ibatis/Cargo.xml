@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="CARGO">
+	<!--<cacheModel type="LRU" id="cargoCache">
+		<flushInterval hours="24" />
+		<property name="size" value="1000" />
+	</cacheModel>
+	--><!--
+		id | int(11) | NO | PRI | NULL | origin_province | varchar(200) | YES
+		| | NULL | dest_province | varchar(200) | YES | | NULL | cargo_type |
+		varchar(10) | YES | | NULL | number | float | YES | | NULL | unit |
+		varchar(10) | YES | | NULL | truck_type | varchar(10) | YES | | NULL |
+		freight | decimal(11,2) | YES | | NULL | payment_method | varchar(10)
+		| YES | | NULL | start_time | date | YES | | NULL | end_time | date |
+		YES | | NULL | uid | int(11) | YES | MUL | NULL | origin_country |
+		varchar(200) | YES | | NULL | origin_city | varchar(200) | YES | |
+		NULL | dest_country | varchar(200) | YES | | NULL | dest_city |
+		varchar(200) | YES | | NULL |
+	-->
+	<insert id="INSERT_CARGO" parameterClass="java.util.HashMap">
+		<![CDATA[
+			INSERT INTO T_CARGO(origin_province,origin_country,origin_city,dest_province,dest_country,dest_city,cargo_type,
+			number,unit,truck_type,freight,payment_method,start_time,end_time,uid,cargo_username,cargo_phone) VALUES(#origin_province#,#origin_country#,#origin_city#,#dest_province#,#dest_country#,#dest_city#,#cargo_type#,
+			#number#,#unit#,#truck_type#,#freight#,#payment_method#,#start_time#,#end_time#,#uid#,#cargo_username#,#cargo_phone#);
+		]]>
+	</insert>
+
+	<select id="SELECT_CARGO_LIST_BY_ORIGINANDDESTS" resultClass="java.util.HashMap" parameterClass="java.util.HashMap">
+	
+		SELECT origin_province,origin_city,origin_country,dest_province,dest_city,dest_country,
+		CASE 
+			WHEN cargo_type = '001' THEN '危险品铁桶' 
+			WHEN cargo_type = '002' THEN '危险品塑料桶' 
+			WHEN cargo_type = '003' THEN '危险品吨桶' 
+			WHEN cargo_type = '004' THEN '危险品吨袋' 
+			WHEN cargo_type = '005' THEN '危险品纸板桶' 
+			WHEN cargo_type = '006' THEN '危险品25KG/包' 
+			WHEN cargo_type = '007' THEN '危险品50KG/包' 
+			WHEN cargo_type = '008' THEN '危险品小桶' 
+			WHEN cargo_type = '009' THEN '危险品' 
+			WHEN cargo_type = '010' THEN '气体' 
+			WHEN cargo_type = '011' THEN '普货' 
+			WHEN cargo_type = '012' THEN '整车危险品' 
+			WHEN cargo_type = '013' THEN '整车普货' 
+			WHEN cargo_type = '014' THEN '泡货' 
+			WHEN cargo_type = '015' THEN '零担' 
+			WHEN cargo_type = '016' THEN '设备' 
+			WHEN cargo_type = '017' THEN '超宽超长大件' 
+			WHEN cargo_type = '018' THEN '农产品' 
+			WHEN cargo_type = '019' THEN '水产品' 
+		END	cargo_type,
+		CASE  
+			WHEN  truck_type = '100' THEN '平板半挂车'
+			WHEN  truck_type = '101' THEN '高栏半挂车'
+			WHEN  truck_type = '102' THEN '半飞翼半挂车'
+			WHEN  truck_type = '103' THEN '全飞翼半挂车'
+			WHEN  truck_type = '104' THEN '高低板半挂车'
+			WHEN  truck_type = '105' THEN '平板9.6米'
+			WHEN  truck_type = '106' THEN '平板7.5米'
+			WHEN  truck_type = '107' THEN '高栏9.6米'
+			WHEN  truck_type = '108' THEN '高栏7.5米'
+			WHEN  truck_type = '109' THEN '重型货车>14t'
+			WHEN  truck_type = '110' THEN ' <![CDATA[6t<中型货车<14]]>'
+			WHEN  truck_type = '111' THEN '<![CDATA[2t<轻型货车<6t]]>'
+			WHEN  truck_type = '112' THEN '<![CDATA[微型货车<2t]]>'
+			WHEN  truck_type = '113' THEN '集装箱'
+			WHEN  truck_type = '114' THEN '大件车辆'
+			WHEN  truck_type = '115' THEN '槽罐车'
+			WHEN  truck_type = '116' THEN '保温车'
+			WHEN  truck_type = '117' THEN '冷藏车'
+			WHEN  truck_type = '118' THEN '牵引车'
+			WHEN  truck_type = '119' THEN '吊车'
+			WHEN  truck_type = '120' THEN '叉车'
+			WHEN  truck_type = '121' THEN '轿运车'
+			WHEN  truck_type = '122' THEN '大巴车'
+		END truck_type,
+		CASE  
+			WHEN unit = '200' THEN '吨'
+			WHEN unit = '201' THEN '方'
+			WHEN unit = '202' THEN '桶'
+			WHEN unit = '203' THEN '只'
+			WHEN unit = '204' THEN '米'
+			WHEN unit = '205' THEN '辆'
+		END unit,
+		CASE 
+			WHEN payment_method = '300' THEN '货到付款'
+			WHEN payment_method = '301' THEN '回单付款'
+			WHEN payment_method = '302' THEN '现付'
+			WHEN payment_method = '303' THEN '到付'
+		END  payment_method,start_time,end_time,uid,cargo_username,cargo_phone,number,freight 
+		 FROM T_CARGO
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="origin_province">
+				origin_province = #origin_province#
+					</isNotEmpty>
+			<isNotEmpty prepend="AND" property="origin_city">
+				origin_city = #origin_city#
+					</isNotEmpty>
+			<isNotEmpty prepend="AND" property="origin_country">
+				origin_country = #origin_country#
+					</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dest_province">
+				dest_province = #dest_province#
+					</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dest_city">
+				dest_city = #dest_city#
+					</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dest_country">
+				dest_country = #dest_country#
+					</isNotEmpty>
+		</dynamic>
+		ORDER BY CARGO_TIMESTAMP DESC;
+	</select>
+	<!--
+		<parameterMap class="user" id="userMap"> <parameter
+		property="userName" /> <parameter property="password" />
+		</parameterMap>
+	-->
+	<!--
+
+		<resultMap class="user" id="userResult"> <result property="userName"
+		column="username" /> <result property="passsword" column="password" />
+		</resultMap> <insert id="insertUser" parameterClass="user"> INSERT
+		INTO T_USER(USERNAME,PASSWORD) VALUES (#userName#,#password#)
+		</insert> <select id="queryUserList" cacheModel="userCache"
+		resultMap="userResult"> SELECT * FROM T_USER <dynamic prepend="WHERE">
+		<isGreaterThan compareValue="" prepend="AND"></isGreaterThan>
+		</dynamic> </select>
+	-->
+</sqlMap>
