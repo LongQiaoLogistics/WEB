@@ -1,0 +1,34 @@
+.navbar-brand-logo {
+	margin-left: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	float: left;
+}
+
+.dropdown-menu {
+	font-size: 10pt;
+}
+
+.navbar-collapse ul {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+	
+.lq-deliver-form {
+	color: black;
+	font-weight: bold;
+}
+
+.lq-header-nav-menu,.form_datetime,.active {
+	font-weight: bold;
+}
+.input-group-addon{
+	color: #000033;
+	font-weight: bold;
+}
+i{
+	color:#666699;
+}
+.breadcrumb{
+	background-color: #CCCCCC;
+}

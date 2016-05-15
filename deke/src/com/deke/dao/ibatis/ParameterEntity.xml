@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PE">
+	<cacheModel type="LRU" id="peCache">
+		<flushInterval hours="24" />
+		<property name="size" value="1000" />
+	</cacheModel>
+
+	<typeAlias alias="pe" type="com.deke.entity.ParameterEntity"></typeAlias>
+	<resultMap class="pe" id="peResultMap">
+		<result property="code" column="code" />
+		<result property="entity" column="entity" />
+	</resultMap>
+	<select id="QUERYLISTFROM_T_CODE_RULE" resultMap="peResultMap" cacheModel="peCache">
+				<![CDATA[
+				SELECT * FROM T_CODE_RULE;
+				]]>
+	</select>
+</sqlMap>

@@ -1,0 +1,97 @@
+#main{
+	position: relative;
+}
+
+.content{
+	width: 720px;
+	margin-top: 60px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.tabMenu{
+	width: 90%;
+}
+#tabs{
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	margin-bottom: -1px;
+}
+.tabClass{
+    border: 1px solid #CCCCCC;
+    background: #FCFCFC;
+}
+.tabMenu ul li{
+    margin: 0;
+    padding: 0;
+    font:12px arial;
+    width: 118px;
+    height: 32px;
+    list-style: none;
+    display: inline-block;
+    line-height: 32px;
+    text-align: center;
+    color: #333333;
+    cursor: pointer;
+    float:left;
+    border-left-width: 0px;
+    border-bottom-width:0;
+}
+.content .tabCheck{
+    color: #1E90FF;
+    font-weight:bold;
+    border: 1px solid #CCCCCC;
+    background: #F9F9F9;
+    border-bottom: 1px solid #F9F9F9;
+    border-left-width: 1px;
+}
+
+.content .tabShow{
+	width: 100%;
+	height: 100px;
+	border: 1px solid #CCCCCC;
+	background: #F9F9F9;
+	color: black;
+}
+.loctionRange{
+	margin: 35px 0 0;
+	text-align: left;
+}
+.searchInput{
+	width: 160px;
+	height: 28px;
+	border: 1px solid #CCCCCC;
+}
+.input-txt-style{
+	line-height: 23px;
+	padding: 0 5px;
+	font-family:serif;
+	font-size:12px;
+	font-weight:bold;
+	vertical-align: middle;
+}
+/*首页tab的标签名*/
+.localLable{
+	padding-left: 15px;
+	padding-right: 10px;
+	font-size: 14px;
+}
+/*首页tab按钮*/
+.tab_search_button{
+	width: 100px;
+	height: 28px;
+	border: 1px solid #CCCCCC;
+	background: #FFFFFF;
+	vertical-align: middle;
+	font-size: 14px;
+	cursor: pointer;
+	color:#1E90FF;
+	font-weight:bold;
+	margin-left: 15px;
+}
+#tab_findCargo{
+	display: none;
+}
+#tab_search_cargo{
+	position: relative;
+}

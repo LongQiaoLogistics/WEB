@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="   
+          http://www.springframework.org/schema/beans   
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+          http://www.springframework.org/schema/tx   
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+          http://www.springframework.org/schema/context   
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+          http://www.springframework.org/schema/aop   
+          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<mvc:annotation-driven />
+
+	<!--使aspectJ注解起作用：自动为匹配的类生成代理对象 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<bean class="com.deke.intercepter.LoginIntercepter" />
+	</mvc:interceptors>
+
+	<context:component-scan base-package="com.deke.**"></context:component-scan>
+
+
+	<!--配置AOP CargoLogAspect -->
+	<bean class="com.deke.aop.CargoLogAspect" id="cargoLogAspect"></bean>
+	<aop:config>
+		<aop:pointcut
+			expression="execution(public * com.deke.web.controller.CargoController.*(..))"
+			id="cargoPointcut" />
+		<aop:aspect ref="cargoLogAspect" order="1">
+			<aop:before method="before" pointcut-ref="cargoPointcut" />
+		</aop:aspect>
+	</aop:config>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 配置国际化 -->
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="i18n"></property>
+	</bean>
+</beans>
