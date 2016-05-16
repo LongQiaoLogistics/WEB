@@ -10,6 +10,6 @@ public class CargoLogAspect {
 	//System.out.println("hello world");
 	public void before(JoinPoint jp){
 		logger.debug(jp.getSignature().getName()+"");
-		//ÄãºÃ
+		//javascript
 	}
 }
